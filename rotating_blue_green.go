@@ -36,6 +36,14 @@ func blueGreen() *schema.Resource {
 				Type:     schema.TypeInt,
 				Computed: true,
 			},
+			"blue_uuid": &schema.Schema{
+				Type:     schema.TypeString,
+				Computed: true,
+			},
+			"green_uuid": &schema.Schema{
+				Type:     schema.TypeString,
+				Computed: true,
+			},
 		},
 	}
 }
@@ -72,7 +80,14 @@ func blueGreenCreate(d *schema.ResourceData, m interface{}) error {
 	}
 
 	d.SetId(uuid.New().String())
-
+	err = d.Set("blue_uuid", uuid.New().String())
+	if err != nil {
+		return err
+	}
+	err = d.Set("green_uuid", uuid.New().String())
+	if err != nil {
+		return err
+	}
 	err = d.Set("active", "blue")
 	if err != nil {
 		return err
@@ -100,8 +115,16 @@ func blueGreenRead(d *schema.ResourceData, m interface{}) error {
 			if err != nil {
 				return err
 			}
+			err = d.Set("blue_uuid", uuid.New().String())
+			if err != nil {
+				return err
+			}
 		} else {
 			err := d.Set("active", "green")
+			if err != nil {
+				return err
+			}
+			err = d.Set("green_uuid", uuid.New().String())
 			if err != nil {
 				return err
 			}
