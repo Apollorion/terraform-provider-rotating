@@ -139,6 +139,10 @@ func blueGreenRead(d *schema.ResourceData, m interface{}) error {
 }
 
 func blueGreenUpdate(d *schema.ResourceData, m interface{}) error {
+	_, err := getTimeIncrease(d)
+	if err != nil {
+		return err
+	}
 	return blueGreenRead(d, m)
 }
 

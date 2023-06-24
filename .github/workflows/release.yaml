@@ -5,6 +5,9 @@ on:
     tags:
       - "v*.*.*"
 
+permissions:
+  contents: write
+
 jobs:
   terraform-provider-release:
     name: 'Terraform Provider Release'
